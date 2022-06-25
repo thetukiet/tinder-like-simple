@@ -1,15 +1,13 @@
 import React from "react";
 import { Redirect, Route, Switch } from 'react-router';
-import './App.css';
-import TinderCards from "./components/TinderCards";
-import PassList from "./components/PassList";
+import './App.scss';
+import Main from "./components/Main";
 
 function App() {
   return (
     <Switch>
         <Route exact path="/">
-          <TinderCards/>
-          {/* <PassList/> */}
+          <Main/>
         </Route>
         <Redirect to="/" />
       </Switch>

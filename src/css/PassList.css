@@ -1,0 +1,17 @@
+.pass-grid {
+  display: grid;
+  grid-template-columns: 100px 1fr 150px;
+  max-height: 100%;
+}
+.pass-grid img{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.pass-grid div{
+  display: grid;
+  align-items: center;
+  height: 100%;
+  padding: 5px 0 5px 0;
+  border-bottom: #cdcdcd solid 1px;
+}

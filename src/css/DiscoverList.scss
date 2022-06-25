@@ -1,0 +1,71 @@
+
+.tinderCards_container {
+  justify-content:center;
+  .swipe {
+    position:absolute;
+    display:grid;
+    grid-template-rows:810px 70px;
+    grid-template-columns: 650px;
+    grid-template-areas:
+      "image"
+      "info";
+
+    .card {
+      grid-area: image;
+      background-size: cover;
+      object-fit: cover;
+      background-position:center;
+
+      h3 {
+        position:absolute;
+        bottom: 10px;
+      }
+    }
+    .card-info {
+      grid-area: info;
+      height: 70px;
+      background-color: #212121;
+      color: white;
+      padding: 15px 0 0 15px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-style: normal;
+      font-size: 19px;
+      button{
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+      .card-buttons {
+        position:absolute;
+        bottom: 10px;
+        right: 20px;
+        .MuiIconButton-root {
+          background-color: white !important;
+          cursor: pointer;
+        }
+
+        .close-btn {
+          color:#ec5e6f !important;
+          width: 27px !important;
+          height: 27px !important;
+        }
+
+        .favirate-btn {
+          color: #76e2b3 !important;
+          width: 27px !important;
+          height: 27px !important;
+        }
+      }
+    }
+  }
+}
+.slideLeft {
+  transform: translate(-170%, 0) !important;
+}
+.slideRight {
+  transform: translate(170%, 0) !important;
+}
+.slideShow {
+  transition-duration: 1s !important;
+  transition-property: transform, opacity !important;
+  opacity: 0%;
+}

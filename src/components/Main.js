@@ -1,61 +1,66 @@
 import React,{ useState, useEffect } from 'react'
-import TinderCard from 'react-tinder-card'
-import Constants from '../Constants';
-import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import PassList from './PassList';
+import LoveList from './LoveList';
+import DiscoverList from './DiscoverList';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import { withStyles } from '@material-ui/core/styles';
 
-function TinderCards() {
-    const [pepoles,setPepoles] = useState([]);
+function Main() {
+    const [valueTab, setTab] = useState(1);
+    const handleChangeTab= (event, value) => {
+        setTab(value);
+    }
 
-    const loadContent = (tag) => {
-       
-    };
+    const CustomTab = withStyles({
+        root: {
+            minWidth:"33.33%",
+            color:"black",
+            minHeight:"50px",
+            backgroundColor: 'white',
+        },
+        selected: {
+            backgroundColor: '#efefd0',
+        },
+        
+      })(Tab);
 
-    const showLoveList = () => {
-        alert(person);
-    };
-    const showPassList = () => {
-        alert(person.id);
-    };
-    const showCardsList = () => {
-        alert(person.id);
-    };
-
-  
     return (
-            <div className="tinderCards_container">
-                {
-                    pepoles.map((person)=>(
-                        <TinderCard 
-                            className="swipe"
-                            key={person.id}
-                            id={person.id}
-                            preventSwipe={["up", "down"]}
-                        >
-                            <div style={{
-                                backgroundImage:`url(${person.picture})`}}
-                                className="card">
-                            </div>
-                            
-                            <div className='card-info'>
-                                {person.firstName + " " + person.lastName} - {calcAge(person.dateOfBirth)}
-
-                                <div className="card-buttons">
-                                    <IconButton onClick={() => onPass(person)}>
-                                        <CloseIcon className="close-btn" fontSize="large"/>
-                                    </IconButton>
-                                    <IconButton onClick={() => onLike(person)}>
-                                        <FavoriteIcon className="favirate-btn" fontSize="large"/>
-                                </IconButton>
-                                </div>
-                            </div>
-                        </TinderCard>
-                       
-                    ))
+        <div className='main-content'>
+            <div className='display-component'>
+                { valueTab == 0 &&
+                    <PassList />
+                }
+                { valueTab == 1 &&
+                    <DiscoverList />
+                }
+                { valueTab == 2 &&
+                    <LoveList />
                 }
             </div>
+            <Tabs
+                justify="center"
+                value={valueTab}
+                textColor="inherit"
+                onChange={ handleChangeTab }
+                TabIndicatorProps={{style: {backgroundColor: "#fb8500", height:"5px"}}}
+                classes={{ root: "wrapper-tabs container", flexContainer: "tabs" }}
+            >
+                <CustomTab icon={
+                    <BackspaceIcon className="close-btn" fontSize="medium" color='blue' sx={{color:"#ef233c"}}/>
+                } iconPosition="start" label="Passed"/>
+                <CustomTab icon={
+                    <FavoriteIcon className="favirate-btn" fontSize="medium" sx={{color:"green"}}/>
+                } iconPosition="start" label="Discover" />
+                <CustomTab icon={
+                    <VolunteerActivismIcon className="close-btn" fontSize='medium' sx={{color:"#00a6fb"}}/>
+                } iconPosition="start" label="Liked"/>
+            </Tabs>
+        </div>
     )
 }
 
-export default TinderCards
+export default Main

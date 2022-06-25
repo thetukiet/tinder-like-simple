@@ -1,69 +1,54 @@
 import React,{ useState, useEffect } from 'react'
-import TinderCard from 'react-tinder-card'
 import Constants from '../Constants';
-import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import {motion, MotionConfig} from "framer-motion";
+import calcAge from '../utils/DateUtils';
 
 function TinderCards() {
-    const [pepoles,setPepoles] = useState([]);
+    const [lovePeoples, setLovePeoples] = useState([]);
 
-    const calcAge = (dateOfBirth) => {
-        var today = new Date();
-        var birthDate = new Date(dateOfBirth.replace('/','-'));
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem(Constants.LOVE_PEOPLES_KEY));
+        if (data) {
+            setLovePeoples(data);
         }
-        return age;
-    };
+    }, []);
 
-    const onPass = (person) => {
-        alert(person);
-    };
-    const onLike = (person) => {
-        alert(person.id);
-    };
-
-    useEffect(()=>{
-        fetch(Constants.USERS_URL)
-        .then(response=>response.json())
-        .then(results=>setPepoles(results))
-    },[])
-    return (
-            <div className="tinderCards_container">
-                {
-                    pepoles.map((person)=>(
-                        <TinderCard 
-                            className="swipe"
-                            key={person.id}
-                            id={person.id}
-                            preventSwipe={["up", "down"]}
-                        >
-                            <div style={{
-                                backgroundImage:`url(${person.picture})`}}
-                                className="card">
-                            </div>
-                            
-                            <div className='card-info'>
-                                {person.firstName + " " + person.lastName} - {calcAge(person.dateOfBirth)}
-
-                                <div className="card-buttons">
-                                    <IconButton onClick={() => onPass(person)}>
-                                        <CloseIcon className="close-btn" fontSize="large"/>
-                                    </IconButton>
-                                    <IconButton onClick={() => onLike(person)}>
-                                        <FavoriteIcon className="favirate-btn" fontSize="large"/>
-                                </IconButton>
+    if(lovePeoples.length > 0){
+        return (
+            <div className='list-container'>
+                <div className="img-grid">
+                    {
+                        lovePeoples.map((people)=>(
+                            <motion.div
+                                layout
+                                whileHover={{opacity: 1}}
+                                className="img-wrap"
+                                key={people.id}
+                                onClick={() => {}}
+                            >
+                                <motion.img
+                                    src={people.picture}
+                                    initial={{opacity: 0}}
+                                    animate={{opacity: 1}}
+                                    transition={{delay: 0}}
+                                />
+                                <div className='cell-info'>
+                                    {people.firstName + " " + people.lastName} - {calcAge(people.dateOfBirth)}
                                 </div>
-                            </div>
-                        </TinderCard>
-                       
-                    ))
-                }
+                            </motion.div>
+                            
+                        ))
+                    }
+                </div>
             </div>
-    )
+        );
+    }else{
+        return (
+            <div className='list-container' style={{backgroundColor:"#dedede"}}>
+                <div className='no-content'>Liked profiles list is empty</div>
+            </div>
+        );
+    }
 }
 
 export default TinderCards

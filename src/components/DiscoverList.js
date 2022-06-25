@@ -4,22 +4,12 @@ import Constants from '../Constants';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import calcAge from '../utils/DateUtils';
 
-function TinderCards() {
+function DiscoverList() {
     const [pepoles,setPepoles] = useState([]);
     const [passPeoples, setPassPeoples] = useState([]);
     const [lovePeoples, setLovePeoples] = useState([]);
-
-    const calcAge = (dateOfBirth) => {
-        var today = new Date();
-        var birthDate = new Date(dateOfBirth.replace('/','-'));
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
-    };
 
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -73,23 +63,20 @@ function TinderCards() {
             await updatePeopleList(people.id);
         }
     }
-
-    // Read saved data
-    useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(Constants.PASS_PEOPLES_KEY));
-        if (data) {
-            setPassPeoples(data);
-        }
-    }, []);
-
-    useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(Constants.LOVE_PEOPLES_KEY));
-        if (data) {
-            setLovePeoples(data);
-        }
-    }, []);
-
+    
     useEffect(()=>{
+        // Load saved data
+        const passData = JSON.parse(localStorage.getItem(Constants.PASS_PEOPLES_KEY));
+        if (passData) {
+            setPassPeoples(passData);
+        }
+
+        const loveData = JSON.parse(localStorage.getItem(Constants.LOVE_PEOPLES_KEY));
+        if (loveData) {
+            setLovePeoples(loveData);
+        }
+
+        // Fetch new profiles
         fetch(Constants.USERS_URL)
         .then(response=>response.json())
         .then(results=>setPepoles(results))
@@ -129,4 +116,4 @@ function TinderCards() {
     )
 }
 
-export default TinderCards
+export default DiscoverList
