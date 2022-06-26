@@ -9,6 +9,7 @@
   object-fit: cover;
 }
 .pass-grid div{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: grid;
   align-items: center;
   height: 100%;
