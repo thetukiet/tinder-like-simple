@@ -1,13 +1,13 @@
-## Simple Tinder-Clone Web App - Not Finished yet
-Will update soon
+## Simple Tinder-Clone Web App With Basic Features
+### The main points of this repo is UI/UX not features :-)
 
 - Back-End:
-  - Database: MongoDB
   - Back-end JS framework: NodeJS
   - Server side: Express JS
-  - Connect to MongoDB use Mongooes
+
 - Front-End:
-  - deploying it into firebase to host front-end
+  - Using mock API from mockapi.io
+  - Use LocalStorage to cover some POST method from Backend API
 
 ## How to run
 - npm install
@@ -15,3 +15,5 @@ Will update soon
 - Run at http://localhost:3000
 
 ### Take reference from pruthvi
+
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
