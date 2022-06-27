@@ -1,19 +1,43 @@
-## Simple Tinder-Clone Web App With Basic Features
-### The main points of this repo is UI/UX not features :-)
+# Simple Tinder Web App - Fullstack
+
+## Screenshots
+
+![](assets/20220627_150038_pic1.png)
+
+![](assets/20220627_150038_pic3.png)
+
+![](assets/20220627_150038_pic2.png)
+
+## Implementation content
 
 - Back-End:
-  - Back-end JS framework: NodeJS
-  - Server side: NodeJs + Json Server
 
+  - Back-end JS framework: NodeJS
+  - Database and API with Json Server, https://github.com/typicode/json-server
 - Front-End:
-  - Using mock API from mockapi.io
-  - Use LocalStorage to cover some POST method from Backend API
+
+  - SinglePage app with ReactJS
+  - Use some UI libraries: MUI Material, Framer Motion, React Tinder Card
 
 ## How to run
-- npm install
-- react-scripts start
-- Run at http://localhost:3000
 
-### Take reference from pruthvi
+- NPM install for both Front-End and Back-End
+- BE host: http://localhost:3001
+- FE host: http://localhost:3000
+- If you get problems with XCode. Try this:
 
-sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+  ```
+  sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+  ```
+
+## Technical Debts
+
+- Continuous and pagination Loadings
+- Discover list resume issues after switching tabs/components
+- Apply real DB
+
+.
+
+### More questions and concerns
+
+Please reach out to me via this email address thetukiet@gmail.com
