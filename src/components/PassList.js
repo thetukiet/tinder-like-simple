@@ -1,15 +1,14 @@
 import React,{ useState, useEffect } from 'react'
-import Constants from '../Constants';
+import Urls from '../Urls';
 import calcAge from '../utils/DateUtils';
 
 function PassList() {
     const [passPeoples, setPassPeoples] = useState([]);
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(Constants.PASS_PEOPLES_KEY));
-        if (data) {
-            setPassPeoples(data);
-        }
+        fetch(Urls.PASSED_USERS_URL)
+        .then(response=>response.json())
+        .then(results=>setPassPeoples(results))
     }, []);
 
     if(passPeoples.length > 0){

@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react'
-import Constants from '../Constants';
+import Urls from '../Urls';
 import {motion, MotionConfig} from "framer-motion";
 import calcAge from '../utils/DateUtils';
 
@@ -7,10 +7,9 @@ function TinderCards() {
     const [lovePeoples, setLovePeoples] = useState([]);
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(Constants.LOVE_PEOPLES_KEY));
-        if (data) {
-            setLovePeoples(data);
-        }
+        fetch(Urls.LIKED_USERS_URL)
+        .then(response=>response.json())
+        .then(results=>setLovePeoples(results))
     }, []);
 
     if(lovePeoples.length > 0){

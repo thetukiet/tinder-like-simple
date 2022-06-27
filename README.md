@@ -3,7 +3,7 @@
 
 - Back-End:
   - Back-end JS framework: NodeJS
-  - Server side: Express JS
+  - Server side: NodeJs + Json Server
 
 - Front-End:
   - Using mock API from mockapi.io

@@ -1,0 +1,4 @@
+{
+  "defaultPort": 3001,
+  "databaseFile": "data/database.json"
+}

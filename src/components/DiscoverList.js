@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react'
 import TinderCard from 'react-tinder-card'
-import Constants from '../Constants';
+import Urls from '../Urls';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,30 +8,29 @@ import calcAge from '../utils/DateUtils';
 
 function DiscoverList() {
     const [pepoles,setPepoles] = useState([]);
-    const [passPeoples, setPassPeoples] = useState([]);
-    const [lovePeoples, setLovePeoples] = useState([]);
-
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+    const postData = (url, data) =>{
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // TODO: show notification(success/error)
+                console.log(data);
+            } );
+    };
+
     const onPass = async (people) => {
-        var currentList = passPeoples;
-        const index = currentList.findIndex(a => a.id === people.id);
-        if (index === -1) {
-            currentList.push(people)
-            setPassPeoples(currentList);
-            localStorage.setItem(Constants.PASS_PEOPLES_KEY, JSON.stringify(currentList));
-        }
+        postData(Urls.PASS_URL, people);
         await doSlide(people, 'left');
     };
 
     const onLike = async (people) => {
-        var currentList = lovePeoples;
-        const index = currentList.findIndex(a => a.id === people.id);
-        if (index === -1) {
-            currentList.push(people)
-            setLovePeoples(currentList);
-            localStorage.setItem(Constants.LOVE_PEOPLES_KEY, JSON.stringify(currentList));
-        }
+        postData(Urls.LIKE_URL, people);
         await doSlide(people, 'right');
     };
 
@@ -63,21 +62,9 @@ function DiscoverList() {
             await updatePeopleList(people.id);
         }
     }
-    
+
     useEffect(()=>{
-        // Load saved data
-        const passData = JSON.parse(localStorage.getItem(Constants.PASS_PEOPLES_KEY));
-        if (passData) {
-            setPassPeoples(passData);
-        }
-
-        const loveData = JSON.parse(localStorage.getItem(Constants.LOVE_PEOPLES_KEY));
-        if (loveData) {
-            setLovePeoples(loveData);
-        }
-
-        // Fetch new profiles
-        fetch(Constants.USERS_URL)
+        fetch(Urls.USERS_URL)
         .then(response=>response.json())
         .then(results=>setPepoles(results))
     },[])
